@@ -1,4 +1,8 @@
 defmodule GB2260.Division do
+  @moduledoc """
+  #{__MODULE__} provides a struct.
+  """
+
   alias GB2260.Division
   alias GB2260.Data
 
