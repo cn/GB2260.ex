@@ -125,20 +125,20 @@ defmodule GB2260.Division do
   """
   @spec counties(GB2260.Division.t) :: list(GB2260.Division.t)
   def counties(division) do
-    cond do
+    regex = cond do
       is_province?(division) ->
-        regex = ~r/#{province_prefix(division)}\d{4}/
+        ~r/#{province_prefix(division)}\d{4}/
       is_prefecture?(division) ->
-        regex = ~r/#{prefecture_prefix(division)}\d{2}/
+        ~r/#{prefecture_prefix(division)}\d{2}/
       true -> :none
     end
 
-    if is_atom(regex) do
-      []
-    else
-      Data.counties(division.revision)
-        |> Enum.filter(fn(code) -> Regex.match?(regex, code) end)
-        |> batch(division.revision)
+    cond do
+      is_atom(regex) -> []
+      true ->
+        Data.counties(division.revision)
+          |> Enum.filter(fn(code) -> Regex.match?(regex, code) end)
+          |> batch(division.revision)
     end
   end
 
