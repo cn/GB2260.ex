@@ -6,6 +6,6 @@ defmodule GB2260.DivisionTest do
 
   test "build Division struct" do
     assert Division.build("110000", "北京市") == Fixture.beijing
-    assert Division.build("110000", "北京市", 2013) == Fixture.beijing(2013)
+    assert Division.build("110000", "北京市", "2013") == Fixture.beijing("2013")
   end
 end

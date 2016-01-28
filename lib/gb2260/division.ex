@@ -9,7 +9,7 @@ defmodule GB2260.Division do
   @type t :: %__MODULE__{
     code: String.t,
     name: String.t,
-    revision: Data.revision_type
+    revision: String.t
   }
 
   defstruct code: nil, name: nil, revision: "2014"
@@ -21,17 +21,17 @@ defmodule GB2260.Division do
 
 
       iex> GB2260.Division.build("110000", "北京市")
-      %GB2260.Division{ code: "110000", name: "北京市", revision: 2014 }
-      iex> GB2260.Division.build("110000", "北京市", 2013)
-      %GB2260.Division{ code: "110000", name: "北京市", revision: 2013 }
+      %GB2260.Division{ code: "110000", name: "北京市", revision: "2014" }
+      iex> GB2260.Division.build("110000", "北京市", "2013")
+      %GB2260.Division{ code: "110000", name: "北京市", revision: "2013" }
   """
-  @spec build(String.t, String.t, Data.revision_type) :: t
+  @spec build(String.t, String.t, String.t) :: t
   def build(code, name, revision \\ Data.last_revision) do
     %Division{ code: code, name: name, revision: revision }
   end
 
   @doc false
-  @spec batch_build(Data.revision_type, any) :: [t]
+  @spec batch_build(String.t, any) :: [t]
   def batch_build(revision, filter_rule) do
     Data.data(revision)
       |> Enum.filter(filter_rule)

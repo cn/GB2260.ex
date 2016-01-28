@@ -5,14 +5,14 @@ defmodule GB2260.DataTest do
   alias GB2260.Data
 
   test "revisions" do
-    assert Enum.member?(Data.revisions, 2014)
+    assert Enum.member?(Data.revisions, "2014")
   end
 
   test "return last revision" do
-    assert Data.last_revision == 2014
+    assert Data.last_revision == "2014"
   end
 
   test "beijing" do
-    assert Data.fetch("110000", 2014) == "北京市"
+    assert Data.fetch("110000", "2014") == "北京市"
   end
 end

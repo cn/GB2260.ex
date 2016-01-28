@@ -28,7 +28,7 @@ More example can be found in tests.
 beijing = GB2260.Division.build("110000", "北京市")
 
 # get by code
-beijing = GB2260.get("110000", 2013)
+beijing = GB2260.get("110000", "2013")
 prefecture = GB2260.get("110100")
 county = GB2260.get("110102")
 
@@ -41,8 +41,8 @@ GB2260.counties(prefecture)
 
 
 GB2260.province(county) 
-# => %GB2260.Division{code: "110000", name: "北京市", revision: 2014}
+# => %GB2260.Division{code: "110000", name: "北京市", revision: "2014"}
 
 GB2260.prefecture(county) # => 
-# => %GB2260.Division{code: "110100", name: "市辖区", revision: 2014}
+# => %GB2260.Division{code: "110100", name: "市辖区", revision: "2014"}
 ```

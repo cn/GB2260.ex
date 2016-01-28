@@ -2,7 +2,6 @@ defmodule GB2260.Data do
   @moduledoc """
   The Elixir implementation for looking up the Chinese administrative divisions.
   """
-  @type revision_type :: non_neg_integer
 
   @data_path Path.join(__DIR__, "../../data")
 
@@ -12,38 +11,40 @@ defmodule GB2260.Data do
             |> Enum.filter(fn(file_name) -> String.match?(file_name, ~r/.*\.tsv/) end)
             |> Enum.map(fn(file_name) -> @data_path <> "/" <> file_name end)
 
-  revisions = "#{@data_path}/revisions.json"
-              |> File.read!
-              |> Poison.Parser.parse!
-              |> Map.fetch!("revisions")
-              |> Enum.map(
-                fn(revision) ->
-                  revision
-                    |> String.slice(0..3)
-                    |> String.to_integer
-                end
-              )
+  all_revisions = "#{@data_path}/revisions.json"
+                  |> File.read!
+                  |> Poison.Parser.parse!
+                  |> Map.fetch!("revisions")
+                  |> Enum.map(fn(revision) -> String.slice(revision, 0..3) end)
+
+  last_revision = all_revisions
+                  |> Enum.map(&String.to_integer/1)
+                  |> Enum.sort
+                  |> List.last
+                  |> to_string
 
   @doc """
   Return all revisions
   """
+  @spec revisions :: [String.t]
   def revisions do
-    unquote(revisions)
+    unquote(all_revisions)
   end
 
   @doc """
   Return last revision
   """
+  @spec last_revision :: String.t
   def last_revision do
-    unquote(revisions |> Enum.sort |> List.last)
+    unquote(last_revision)
   end
 
-  @spec data(revision_type) :: map
+  @spec data(String.t) :: map
   def data(revision) do
     fetch_data(revision)
   end
 
-  @spec fetch_data(revision_type) :: map
+  @spec fetch_data(String.t) :: map
   defp fetch_data(revision) do
     file_path = file_paths
                 |> Enum.find(fn(path) -> Regex.match?(~r/#{revision}/, path) end)
@@ -67,7 +68,7 @@ defmodule GB2260.Data do
   @doc """
   Return region name
   """
-  @spec fetch(String.t, revision_type) :: String.t | nil
+  @spec fetch(String.t, String.t) :: String.t | nil
   def fetch(code, revision) do
     data(revision) |> Dict.get(code)
   end

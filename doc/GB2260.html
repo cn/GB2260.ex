@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GB2260 – gb2260 v0.3.0</title>
+    <title>GB2260 – gb2260 v0.4.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.10.0">
     <link rel="stylesheet" href="dist/app.css" />
@@ -28,7 +28,7 @@
         gb2260
       </h1>
       <h2 class="sidebar-projectVersion">
-        v0.3.0
+        v0.4.0
       </h2>
     </div>
     
@@ -220,7 +220,7 @@
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">batch([<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>], <a href="GB2260.Data.html#t:revision_type/0">GB2260.Data.revision_type</a>) :: [<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>]</code></pre>
+          <pre><code class="elixir">batch([<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>], <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: [<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>]</code></pre>
         
       </div>
     </div>
@@ -230,13 +230,13 @@
 <h2>Example</h2>
 <pre><code class="iex elixir">iex&gt; GB2260.batch([&quot;110000&quot;, &quot;110100&quot;])
 [
-  %GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2014 },
-  %GB2260.Division{ code: &quot;110100&quot;, name: &quot;市辖区&quot;, revision: 2014 }
+  %GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: &quot;2014&quot; },
+  %GB2260.Division{ code: &quot;110100&quot;, name: &quot;市辖区&quot;, revision: &quot;2014&quot; }
 ]
-iex&gt; GB2260.batch([&quot;110000&quot;, &quot;110100&quot;], 2013)
+iex&gt; GB2260.batch([&quot;110000&quot;, &quot;110100&quot;], &quot;2013&quot;)
 [
-  %GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2013 },
-  %GB2260.Division{ code: &quot;110100&quot;, name: &quot;市辖区&quot;, revision: 2013 }
+  %GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: &quot;2013&quot; },
+  %GB2260.Division{ code: &quot;110100&quot;, name: &quot;市辖区&quot;, revision: &quot;2013&quot; }
 ]</code></pre>
 
   </section>
@@ -300,7 +300,7 @@ iex&gt; GB2260.batch([&quot;110000&quot;, &quot;110100&quot;], 2013)
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">get(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="GB2260.Data.html#t:revision_type/0">GB2260.Data.revision_type</a>) :: <a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a></code></pre>
+          <pre><code class="elixir">get(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a></code></pre>
         
       </div>
     </div>
@@ -309,9 +309,9 @@ iex&gt; GB2260.batch([&quot;110000&quot;, &quot;110100&quot;], 2013)
     <p>Get the specific struct.</p>
 <h2>Example</h2>
 <pre><code class="iex elixir">iex&gt; GB2260.get(&quot;110000&quot;)
-%GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2014 }
-iex&gt; GB2260.get(&quot;110000&quot;, 2013)
-%GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2013 }</code></pre>
+%GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: &quot;2014&quot; }
+iex&gt; GB2260.get(&quot;110000&quot;, &quot;2013&quot;)
+%GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: &quot;2013&quot; }</code></pre>
 
   </section>
 </div>
@@ -468,7 +468,7 @@ iex&gt; GB2260.get(&quot;110000&quot;, 2013)
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">provinces(<a href="GB2260.Data.html#t:revision_type/0">GB2260.Data.revision_type</a>) :: [<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>]</code></pre>
+          <pre><code class="elixir">provinces(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: [<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>]</code></pre>
         
       </div>
     </div>

@@ -13,11 +13,11 @@ defmodule GB2260 do
 
 
       iex> GB2260.get("110000")
-      %GB2260.Division{ code: "110000", name: "北京市", revision: 2014 }
-      iex> GB2260.get("110000", 2013)
-      %GB2260.Division{ code: "110000", name: "北京市", revision: 2013 }
+      %GB2260.Division{ code: "110000", name: "北京市", revision: "2014" }
+      iex> GB2260.get("110000", "2013")
+      %GB2260.Division{ code: "110000", name: "北京市", revision: "2013" }
   """
-  @spec get(String.t, Data.revision_type) :: Division.t
+  @spec get(String.t, String.t) :: Division.t
   def get(code, revision \\ Data.last_revision) do
     Division.build(code, Data.fetch(code, revision), revision)
   end
@@ -30,16 +30,16 @@ defmodule GB2260 do
 
       iex> GB2260.batch(["110000", "110100"])
       [
-        %GB2260.Division{ code: "110000", name: "北京市", revision: 2014 },
-        %GB2260.Division{ code: "110100", name: "市辖区", revision: 2014 }
+        %GB2260.Division{ code: "110000", name: "北京市", revision: "2014" },
+        %GB2260.Division{ code: "110100", name: "市辖区", revision: "2014" }
       ]
-      iex> GB2260.batch(["110000", "110100"], 2013)
+      iex> GB2260.batch(["110000", "110100"], "2013")
       [
-        %GB2260.Division{ code: "110000", name: "北京市", revision: 2013 },
-        %GB2260.Division{ code: "110100", name: "市辖区", revision: 2013 }
+        %GB2260.Division{ code: "110000", name: "北京市", revision: "2013" },
+        %GB2260.Division{ code: "110100", name: "市辖区", revision: "2013" }
       ]
   """
-  @spec batch(list(String.t), Data.revision_type) :: list(Division.t)
+  @spec batch(list(String.t), String.t) :: list(Division.t)
   def batch(list, revision \\ Data.last_revision) do
     list |> Enum.map(fn(code)-> get(code, revision) end)
   end
@@ -47,7 +47,7 @@ defmodule GB2260 do
   @doc """
   Return a list of provinces in `Division` data structure.
   """
-  @spec provinces(Data.revision_type) :: [Division.t]
+  @spec provinces(String.t) :: [Division.t]
   def provinces(revision \\ Data.last_revision) do
     Division.batch_build(revision, fn({code, _name}) -> Regex.match?(~r/\d{2}0000/, code) end)
   end
