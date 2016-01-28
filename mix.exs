@@ -22,6 +22,7 @@ defmodule GB2260.Mixfile do
 
   defp deps do
     [
+      {:poison, "~> 2.0"},
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.10", only: :dev}
     ]
