@@ -2,6 +2,7 @@ defmodule GB2260.Data do
   @moduledoc """
   The Elixir implementation for looking up the Chinese administrative divisions.
   """
+  @type revision_type :: non_neg_integer
 
   @data_path Path.join(__DIR__, "../../data")
 
@@ -26,7 +27,6 @@ defmodule GB2260.Data do
   @doc """
   Return all revisions
   """
-  @spec revisions() :: [non_neg_integer]
   def revisions do
     unquote(revisions)
   end
@@ -34,17 +34,16 @@ defmodule GB2260.Data do
   @doc """
   Return last revision
   """
-  @spec last_revision() :: non_neg_integer
   def last_revision do
     unquote(revisions |> Enum.sort |> List.last)
   end
 
-  @spec data(non_neg_integer) :: map
+  @spec data(revision_type) :: map
   def data(revision) do
     fetch_data(revision)
   end
 
-  @spec fetch_data(non_neg_integer) :: map
+  @spec fetch_data(revision_type) :: map
   defp fetch_data(revision) do
     file_path = file_paths
                 |> Enum.find(fn(path) -> Regex.match?(~r/#{revision}/, path) end)
@@ -68,7 +67,7 @@ defmodule GB2260.Data do
   @doc """
   Return region name
   """
-  @spec fetch(String.t, non_neg_integer) :: String.t | nil
+  @spec fetch(String.t, revision_type) :: String.t | nil
   def fetch(code, revision) do
     data(revision) |> Dict.get(code)
   end
@@ -109,14 +108,14 @@ defmodule GB2260.Data do
   end
 
   @doc false
-  @spec province_code(Division.Division.t) :: String.t
-  def province_code(division) do
-    province_prefix(division.code) <> "0000"
+  @spec province_code(String.t) :: String.t
+  def province_code(code) do
+    province_prefix(code) <> "0000"
   end
 
   @doc false
-  @spec prefecture_code(Division.Division.t) :: String.t
-  def prefecture_code(division) do
-    prefecture_prefix(division.code) <> "00"
+  @spec prefecture_code(String.t) :: String.t
+  def prefecture_code(code) do
+    prefecture_prefix(code) <> "00"
   end
 end

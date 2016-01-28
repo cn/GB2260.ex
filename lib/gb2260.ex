@@ -17,7 +17,7 @@ defmodule GB2260 do
       iex> GB2260.get("110000", 2013)
       %GB2260.Division{ code: "110000", name: "北京市", revision: 2013 }
   """
-  @spec get(String.t, non_neg_integer) :: GB2260.Division.t
+  @spec get(String.t, Data.revision_type) :: Division.t
   def get(code, revision \\ Data.last_revision) do
     Division.build(code, Data.fetch(code, revision), revision)
   end
@@ -39,7 +39,7 @@ defmodule GB2260 do
         %GB2260.Division{ code: "110100", name: "市辖区", revision: 2013 }
       ]
   """
-  @spec batch(list(String.t), non_neg_integer) :: list(GB2260.Division.t)
+  @spec batch(list(String.t), Data.revision_type) :: list(Division.t)
   def batch(list, revision \\ Data.last_revision) do
     list |> Enum.map(fn(code)-> get(code, revision) end)
   end
@@ -47,7 +47,7 @@ defmodule GB2260 do
   @doc """
   Return a list of provinces in `Division` data structure.
   """
-  @spec provinces(non_neg_integer) :: [GB2260.Division.t]
+  @spec provinces(Data.revision_type) :: [Division.t]
   def provinces(revision \\ Data.last_revision) do
     Division.batch_build(revision, fn({code, _name}) -> Regex.match?(~r/\d{2}0000/, code) end)
   end
@@ -55,7 +55,7 @@ defmodule GB2260 do
   @doc """
   Return a list of prefecture level cities in `Division` data structure.
   """
-  @spec prefectures(GB2260.Division.t) :: [GB2260.Division.t]
+  @spec prefectures(Division.t) :: [Division.t]
   def prefectures(division) do
     province_prefix = Data.province_prefix(division.code)
     regex = ~r/#{province_prefix}#{without_two_zeros}00/
@@ -67,7 +67,7 @@ defmodule GB2260 do
   @doc """
   Return a list of counties in `Division` data structure.
   """
-  @spec counties(GB2260.Division.t) :: [GB2260.Division.t]
+  @spec counties(Division.t) :: [Division.t]
   def counties(division) do
     regex = if is_province?(division) do
               province_prefix = Data.province_prefix(division.code)
@@ -84,9 +84,9 @@ defmodule GB2260 do
   @doc """
   Return province of specific struct.
   """
-  @spec province(GB2260.Division.t) :: GB2260.Division.t
+  @spec province(Division.t) :: Division.t
   def province(division) do
-    code = Data.province_code(division)
+    code = Data.province_code(division.code)
 
     name = Data.fetch(code, division.revision)
     Division.build(code, name, division.revision)
@@ -95,12 +95,12 @@ defmodule GB2260 do
   @doc """
   Return prefecture of specific struct.
   """
-  @spec prefecture(GB2260.Division.t) :: GB2260.Division.t | nil
+  @spec prefecture(Division.t) :: Division.t | nil
   def prefecture(division) do
     if is_province?(division) do
       nil
     else
-      code = Data.prefecture_code(division)
+      code = Data.prefecture_code(division.code)
 
       name = Data.fetch(code, division.revision)
       Division.build(code, name, division.revision)
@@ -110,7 +110,7 @@ defmodule GB2260 do
   @doc """
   Return county of specific struct.
   """
-  @spec county(GB2260.Division.t) :: GB2260.Division.t | nil
+  @spec county(Division.t) :: Division.t | nil
   def county(division) do
     if is_county?(division), do: division
   end
@@ -118,7 +118,7 @@ defmodule GB2260 do
   @doc """
   Return true if the struct is province.
   """
-  @spec is_province?(Division.Division.t) :: boolean
+  @spec is_province?(Division.t) :: boolean
   def is_province?(division) do
     Data.is_province?(division.code)
   end
@@ -126,7 +126,7 @@ defmodule GB2260 do
   @doc """
   Return true if the struct is prefecture.
   """
-  @spec is_prefecture?(Division.Division.t) :: boolean
+  @spec is_prefecture?(Division.t) :: boolean
   def is_prefecture?(division) do
     Data.is_prefecture?(division.code)
   end
@@ -134,7 +134,7 @@ defmodule GB2260 do
   @doc """
   Return true if the struct is county.
   """
-  @spec is_county?(Division.Division.t) :: boolean
+  @spec is_county?(Division.t) :: boolean
   def is_county?(division) do
     Data.is_county?(division.code)
   end

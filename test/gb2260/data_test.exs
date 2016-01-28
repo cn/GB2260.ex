@@ -4,6 +4,10 @@ defmodule GB2260.DataTest do
   doctest GB2260.Data
   alias GB2260.Data
 
+  test "revisions" do
+    assert Enum.member?(Data.revisions, 2014)
+  end
+
   test "return last revision" do
     assert Data.last_revision == 2014
   end
