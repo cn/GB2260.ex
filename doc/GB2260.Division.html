@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GB2260.Division – gb2260 v0.1.0</title>
+    <title>GB2260.Division – gb2260 v0.3.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.10.0">
     <link rel="stylesheet" href="dist/app.css" />
@@ -28,7 +28,7 @@
         gb2260
       </h1>
       <h2 class="sidebar-projectVersion">
-        v0.1.0
+        v0.3.0
       </h2>
     </div>
     
@@ -102,100 +102,10 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#batch/2">batch(list, revision \\ Data.last_revision())</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return batch of structs by list of codes</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#build/3">build(code, name, revision \\ Data.last_revision())</a>
   </div>
   
     <div class="summary-synopsis"><p>Build a struct of <code class="inline">GB2260.Division</code></p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#counties/1">counties(division)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return all counties of province or prefecture</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#county/1">county(division)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return county of specific struct</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#get/2">get(code, revision \\ Data.last_revision())</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Get the specific struct</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#is_county?/1">is_county?(division)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return true if the struct is county</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#is_prefecture?/1">is_prefecture?(division)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return true if the struct is prefecture</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#is_province?/1">is_province?(division)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return true if the struct is province</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#prefecture/1">prefecture(division)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return prefecture of specific struct</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#prefectures/1">prefectures(division)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return all prefectures of province</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#province/1">province(division)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Return province of specific struct</p>
 </div>
   
 </div>
@@ -220,7 +130,7 @@
           </h1>
           <div class="types-list">
             <div id="t:t/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %GB2260.Division{code: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, revision: non_neg_integer}</code></pre>
+  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %GB2260.Division{code: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, revision: <a href="GB2260.Data.html#t:revision_type/0">GB2260.Data.revision_type</a>}</code></pre>
   
 </div>
 
@@ -236,41 +146,7 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="batch/2">
-  <div class="detail-header">
-    <a href="#batch/2" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">batch(list, revision \\ Data.last_revision())</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">batch([<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>], non_neg_integer) :: [<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>]</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return batch of structs by list of codes.</p>
-<h2>Example</h2>
-<pre><code class="iex elixir">iex&gt; GB2260.Division.batch([&quot;110000&quot;, &quot;110100&quot;])
-[
-  %GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2014 },
-  %GB2260.Division{ code: &quot;110100&quot;, name: &quot;市辖区&quot;, revision: 2014 }
-]
-iex&gt; GB2260.Division.batch([&quot;110000&quot;, &quot;110100&quot;], 2013)
-[
-  %GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2013 },
-  %GB2260.Division{ code: &quot;110100&quot;, name: &quot;市辖区&quot;, revision: 2013 }
-]</code></pre>
-
-  </section>
-</div>
-<div class="detail" id="build/3">
+          <div class="detail" id="build/3">
   <div class="detail-header">
     <a href="#build/3" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
@@ -283,7 +159,7 @@ iex&gt; GB2260.Division.batch([&quot;110000&quot;, &quot;110100&quot;], 2013)
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">build(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, non_neg_integer) :: <a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a></code></pre>
+          <pre><code class="elixir">build(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="GB2260.Data.html#t:revision_type/0">GB2260.Data.revision_type</a>) :: <a href="#t:t/0">t</a></code></pre>
         
       </div>
     </div>
@@ -295,220 +171,6 @@ iex&gt; GB2260.Division.batch([&quot;110000&quot;, &quot;110100&quot;], 2013)
 %GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2014 }
 iex&gt; GB2260.Division.build(&quot;110000&quot;, &quot;北京市&quot;, 2013)
 %GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2013 }</code></pre>
-
-  </section>
-</div>
-<div class="detail" id="counties/1">
-  <div class="detail-header">
-    <a href="#counties/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">counties(division)</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">counties(<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>) :: [<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>]</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return all counties of province or prefecture.</p>
-
-  </section>
-</div>
-<div class="detail" id="county/1">
-  <div class="detail-header">
-    <a href="#county/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">county(division)</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">county(<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>) :: <a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a> | nil</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return county of specific struct.</p>
-
-  </section>
-</div>
-<div class="detail" id="get/2">
-  <div class="detail-header">
-    <a href="#get/2" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">get(code, revision \\ Data.last_revision())</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">get(<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, non_neg_integer) :: <a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a></code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Get the specific struct.</p>
-<h2>Example</h2>
-<pre><code class="iex elixir">iex&gt; GB2260.Division.get(&quot;110000&quot;)
-%GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2014 }
-iex&gt; GB2260.Division.get(&quot;110000&quot;, 2013)
-%GB2260.Division{ code: &quot;110000&quot;, name: &quot;北京市&quot;, revision: 2013 }</code></pre>
-
-  </section>
-</div>
-<div class="detail" id="is_county?/1">
-  <div class="detail-header">
-    <a href="#is_county?/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">is_county?(division)</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">is_county?(GB2260.Division.Division.t) :: boolean</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return true if the struct is county.</p>
-
-  </section>
-</div>
-<div class="detail" id="is_prefecture?/1">
-  <div class="detail-header">
-    <a href="#is_prefecture?/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">is_prefecture?(division)</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">is_prefecture?(GB2260.Division.Division.t) :: boolean</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return true if the struct is prefecture.</p>
-
-  </section>
-</div>
-<div class="detail" id="is_province?/1">
-  <div class="detail-header">
-    <a href="#is_province?/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">is_province?(division)</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">is_province?(GB2260.Division.Division.t) :: boolean</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return true if the struct is province.</p>
-
-  </section>
-</div>
-<div class="detail" id="prefecture/1">
-  <div class="detail-header">
-    <a href="#prefecture/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">prefecture(division)</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">prefecture(<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>) ::
-  <a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a> |
-  nil</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return prefecture of specific struct.</p>
-
-  </section>
-</div>
-<div class="detail" id="prefectures/1">
-  <div class="detail-header">
-    <a href="#prefectures/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">prefectures(division)</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">prefectures(<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>) :: [<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>]</code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return all prefectures of province.</p>
-
-  </section>
-</div>
-<div class="detail" id="province/1">
-  <div class="detail-header">
-    <a href="#province/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">province(division)</span>
-      
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
-        
-          <pre><code class="elixir">province(<a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a>) :: <a href="GB2260.Division.html#t:t/0">GB2260.Division.t</a></code></pre>
-        
-      </div>
-    </div>
-  
-  <section class="docstring">
-    <p>Return province of specific struct.</p>
 
   </section>
 </div>
