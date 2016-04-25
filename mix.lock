@@ -1,3 +1,4 @@
-%{"earmark": {:hex, :earmark, "0.1.19"},
+%{"benchfella": {:hex, :benchfella, "0.3.2"},
+  "earmark": {:hex, :earmark, "0.1.19"},
   "ex_doc": {:hex, :ex_doc, "0.10.0"},
   "poison": {:hex, :poison, "2.0.1"}}

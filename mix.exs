@@ -17,14 +17,18 @@ defmodule GB2260.Mixfile do
   end
 
   def application do
-    [applications: [:logger]]
+    [
+      applications: [:logger],
+      mod: {GB2260, []}
+    ]
   end
 
   defp deps do
     [
       {:poison, "~> 2.0"},
       {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.10", only: :dev}
+      {:ex_doc, "~> 0.10", only: :dev},
+      {:benchfella, "~> 0.3.0", only: :dev}
     ]
   end
 

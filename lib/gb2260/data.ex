@@ -23,6 +23,7 @@ defmodule GB2260.Data do
                   |> List.last
                   |> to_string
 
+  use GenServer
   @doc """
   Return all revisions
   """
@@ -41,28 +42,7 @@ defmodule GB2260.Data do
 
   @spec data(String.t) :: map
   def data(revision) do
-    fetch_data(revision)
-  end
-
-  @spec fetch_data(String.t) :: map
-  defp fetch_data(revision) do
-    file_path = file_paths
-                |> Enum.find(fn(path) -> Regex.match?(~r/#{revision}/, path) end)
-
-    File.stream!(file_path)
-      |> Enum.reduce(
-        %{},
-        fn(line, map) ->
-          case line do
-            "Source\tRevision\tCode\tName" ->
-              map
-            _ ->
-              [_source, _revision, code, name] = String.split(line, "\t")
-
-              Dict.put(map, code, String.strip(name))
-          end
-        end
-      )
+    GenServer.call(__MODULE__, {:data, revision})
   end
 
   @doc """
@@ -118,5 +98,45 @@ defmodule GB2260.Data do
   @spec prefecture_code(String.t) :: String.t
   def prefecture_code(code) do
     prefecture_prefix(code) <> "00"
+  end
+
+  @spec fetch_data(String.t) :: map
+  defp fetch_data(revision) do
+    file_path = file_paths
+                |> Enum.find(fn(path) -> Regex.match?(~r/#{revision}/, path) end)
+
+    File.stream!(file_path)
+      |> Enum.reduce(
+        %{},
+        fn(line, map) ->
+          case line do
+            "Source\tRevision\tCode\tName" ->
+              map
+            _ ->
+              [_source, _revision, code, name] = String.split(line, "\t")
+
+              Dict.put(map, code, String.strip(name))
+          end
+        end
+      )
+  end
+
+  def start_link do
+    GenServer.start_link(__MODULE__, revisions, name: __MODULE__)
+  end
+
+  # Callbacks
+  def init(revisions) do
+    data = revisions
+            |> Enum.reduce(
+              %{},
+              fn(revision, map) -> Map.put(map, revision, fetch_data(revision)) end
+            )
+
+    {:ok, data}
+  end
+
+  def handle_call({:data, revision}, _from, data) do
+    {:reply, Map.get(data, revision), data }
   end
 end
