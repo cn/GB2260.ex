@@ -17,7 +17,10 @@ defmodule GB2260.Mixfile do
   end
 
   def application do
-    [applications: [:logger]]
+    [
+      applications: [:logger],
+      mod: {GB2260, []}
+    ]
   end
 
   defp deps do

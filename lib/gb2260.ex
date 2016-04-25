@@ -6,6 +6,17 @@ defmodule GB2260 do
   alias GB2260.Data
   alias GB2260.Division
 
+  def start(_type, _args) do
+    import Supervisor.Spec
+
+
+    children = [
+      worker(GB2260.Data, [])
+    ]
+
+    Supervisor.start_link(children, strategy: :one_for_one)
+  end
+
   @doc """
   Get the specific struct.
 
