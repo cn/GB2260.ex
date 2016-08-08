@@ -3,33 +3,22 @@ defmodule GB2260.Data do
   The Elixir implementation for looking up the Chinese administrative divisions.
   """
 
-  @data_path Path.join(__DIR__, "../../data")
-
-  {:ok, files} = File.ls(@data_path)
-
-  paths = files
-            |> Enum.filter(fn(file_name) -> String.match?(file_name, ~r/.*\.tsv/) end)
-            |> Enum.map(fn(file_name) -> @data_path <> "/" <> file_name end)
-
-  all_revisions = "#{@data_path}/revisions.json"
-                  |> File.read!
-                  |> Poison.Parser.parse!
-                  |> Map.fetch!("revisions")
-                  |> Enum.map(fn(revision) -> String.slice(revision, 0..3) end)
-
-  last_revision = all_revisions
-                  |> Enum.map(&String.to_integer/1)
-                  |> Enum.sort
-                  |> List.last
-                  |> to_string
-
   use GenServer
+
+  def data_path do
+    Path.join(Application.app_dir(:gb2260, "priv"), "data")
+  end
+
   @doc """
   Return all revisions
   """
   @spec revisions :: [String.t]
   def revisions do
-    unquote(all_revisions)
+    "#{data_path}/revisions.json"
+    |> File.read!
+    |> Poison.Parser.parse!
+    |> Map.fetch!("revisions")
+    |> Enum.map(fn(revision) -> String.slice(revision, 0..3) end)
   end
 
   @doc """
@@ -37,7 +26,11 @@ defmodule GB2260.Data do
   """
   @spec last_revision :: String.t
   def last_revision do
-    unquote(last_revision)
+    revisions
+    |> Enum.map(&String.to_integer/1)
+    |> Enum.sort
+    |> List.last
+    |> to_string
   end
 
   @spec data(String.t) :: map
@@ -55,7 +48,10 @@ defmodule GB2260.Data do
 
   @spec file_paths() :: [String.t]
   def file_paths do
-    unquote(paths)
+    {:ok, files} = File.ls(data_path)
+    files
+    |> Enum.filter(fn(file_name) -> String.match?(file_name, ~r/.*\.tsv/) end)
+    |> Enum.map(fn(file_name) -> data_path <> "/" <> file_name end)
   end
 
   @doc false
