@@ -9,7 +9,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add gb2260 to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:gb2260, "~> 0.4.0"}]
+          [{:gb2260, "~> 0.6.1"}]
         end
 
   2. Ensure gb2260 is started before your application:

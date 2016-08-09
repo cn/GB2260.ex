@@ -1,7 +1,7 @@
 defmodule GB2260.Mixfile do
   use Mix.Project
 
-  @version "0.6.0"
+  @version "0.6.1"
 
   def project do
     [
@@ -40,7 +40,7 @@ defmodule GB2260.Mixfile do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README*", "data"],
+      files: ["lib", "mix.exs", "README*", "priv/data"],
       maintainers: ["lcp_marvel"],
       licenses: ["MIT"],
       links: %{
