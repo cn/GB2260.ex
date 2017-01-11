@@ -1,6 +1,13 @@
-# GB2260
+# GB2260.ex
 
-**The Elixir implementation for looking up the Chinese administrative divisions**
+The Elixir implementation for looking up the Chinese administrative divisions
+
+# GB/T 2260
+
+[![GB/T 2260](https://img.shields.io/badge/GB%2FT%202260-v0.2-blue.svg)](https://github.com/cn/GB2260)
+[![Build Status](https://img.shields.io/travis/cn/GB2260.ex.svg?style=flat)](https://travis-ci.org/cn/GB2260.ex)
+
+The latest GB/T 2260 codes. Read the [GB2260 Specification](https://github.com/cn/GB2260/blob/v0.2/spec.md).
 
 ## Installation
 
